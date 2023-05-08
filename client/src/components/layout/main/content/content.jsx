@@ -1,27 +1,26 @@
-import {useEffect} from "react"
-import {useDispatch, useSelector} from "react-redux"
-import {axiosAllProducts} from "../../../../store/products/productThunk"
+import {useCallback, useEffect, useState} from "react"
+import { useSelector} from "react-redux"
 import ItemContent from "./itemContent"
+import usePageProduct from "../../../../hooks/usePageProduct"
+
+
 
 const Content = () => {
-    // const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
-    const dispatch = useDispatch()
-    useEffect(() => {
-        dispatch(axiosAllProducts())
-    }, [])
-    console.log(useSelector( store => store.product.data ));
-    const arr = useSelector( store => store.product.data )
+    const [page, setPage] = usePageProduct()
+
+    const arr = useSelector( store => store.product.data.data ) || []
+    console.log( arr );
     return (
-        <div 
-            className="
-                
-                col-span-5
-                grid grid-cols-4 gap-2
-                mx-2
-            "
-        >
-                {arr.map((state,index)=> <ItemContent key={index} data={state} />)}
-        </div>
+            <div className="col-span-5 flex flex-col gap-3">
+                <div className="grid grid-cols-4 gap-2 mx-2">
+                    {arr.map((state,index)=> <ItemContent key={index} data={state} />)}
+                </div>
+                <div className="flex justify-center gap-28">
+                    <button onClick={() => setPage(page - 1)}>lui</button>
+                    <button onClick={() => setPage(page + 1)}>tien</button>
+                </div>
+            </div>
+
     )
 }
 

@@ -13,3 +13,11 @@ export const axiosAllProducts = createAsyncThunk(
         return response.data
     }
 )
+
+export const axiosPageProduct = createAsyncThunk(
+    'product/axiosPaginationResult',
+    async ( params ) => {
+        const response = await getPage(params)
+        return response.data
+    }
+)

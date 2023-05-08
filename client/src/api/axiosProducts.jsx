@@ -9,7 +9,7 @@ const axiosProducts= {
     },
     getPage: (params) => {
         const url = '/products'
-        return axiosClient(url, params)
+        return axiosClient(url, {params})
     }
 }
 

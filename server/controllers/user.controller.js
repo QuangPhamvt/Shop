@@ -49,21 +49,32 @@ const userController = {
             name,
             email,
             password,
-            number,
+            gender,
+            phone,
+            username,
+            image,
         } = req.body
+        if( !(name&&email&&password&&gender&&phone&&username&&image) )
+            res.status(400).json({
+                success: false,
+                message: 'Not have something information'
+            })
         try {
 
-            if( await User.findOne({ $or: [{email}, {number}] }))
+            if( await User.findOne({ $or: [{email}, {username}] }))
                 res.status(400).json({
                     success: false,
-                    message: 'Exist email or number'
+                    message: 'Exist email or username'
                 })
             else{
                 const user = await User.create({
                     name,
                     email,
                     password: await argon2.hash(password),
-                    number,
+                    gender,
+                    phone,
+                    username,
+                    image,
                 })
                 const authToken = jwt.sign(user._id.toJSON(), process.env.JWT_SECRETKEY)
                 res.cookie('authToken', authToken, {

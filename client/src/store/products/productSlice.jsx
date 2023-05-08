@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {axiosAllProducts} from "./productThunk";
+import {axiosAllProducts, axiosPageProduct} from "./productThunk";
 
 
 const initialState = {
@@ -18,6 +18,10 @@ const productSlice = createSlice({
         builder
             .addCase(axiosAllProducts.fulfilled, (state, action) => {
                 const { data } = action.payload
+                return { ...state, data }
+            })
+            .addCase(axiosPageProduct.fulfilled, (state, action) => {
+                const data  = action.payload
                 return { ...state, data }
             })
     }
