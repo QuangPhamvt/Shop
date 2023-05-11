@@ -1,7 +1,7 @@
-import Category from "../models/category.model.js"
-import Product from "../models/product.model.js"
+
 import { Router } from "express"
 import { data } from "../test/category.test.js"
+import { categoryTitleProducts } from "../models/category.model.js"
 
 
 const categoryRouter = Router()
@@ -22,7 +22,7 @@ categoryRouter
     .get("/test", async (req, res) => {
         try {
             res.json({
-                data: await Category.find().populate("products", { title: 1 })
+                data: await categoryTitleProducts.toArray()
             })
         } catch (error) {
             res.json({

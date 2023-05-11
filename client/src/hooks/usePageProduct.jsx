@@ -8,11 +8,16 @@ export default function usePageProduct() {
     const [page, setPage] = useState(1)
     const limit = 10
     const dispatch = useDispatch()
-    console.log(1);
+
     useEffect(() => {
-        console.log(2);
-        dispatch(axiosPageProduct({ page, limit }))
-        setSearchParams({ page, limit})
-    }, [page])
+        if(!(searchParams.get("page") === null)){
+            dispatch(axiosPageProduct({ page, limit }))
+            setSearchParams({ page, limit})
+            return
+        }
+        dispatch(axiosPageProduct({ page: 1, limit }))
+        setPage(1)
+        setSearchParams({ page: 1, limit})
+    }, [page, searchParams.get("page")])
     return [page, setPage]
 }

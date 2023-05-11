@@ -1,4 +1,3 @@
-import {useCallback, useEffect, useState} from "react"
 import { useSelector} from "react-redux"
 import ItemContent from "./itemContent"
 import usePageProduct from "../../../../hooks/usePageProduct"
@@ -9,7 +8,6 @@ const Content = () => {
     const [page, setPage] = usePageProduct()
 
     const arr = useSelector( store => store.product.data.data ) || []
-    console.log( arr );
     return (
             <div className="col-span-5 flex flex-col gap-3">
                 <div className="grid grid-cols-4 gap-2 mx-2">

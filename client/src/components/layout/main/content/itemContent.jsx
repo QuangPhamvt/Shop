@@ -12,11 +12,11 @@ const ItemContent = ( { data } ) => {
     //     },
     //     image: "",
     // }
-
     return (
+
         <div className="flex flex-col gap-3 h-[460px] border-2 rounded-md">
             <img 
-                src="https://cdn.myanimelist.net/images/characters/4/491833.jpg" alt=""
+                src={data["thumbnail"]} alt="loading"
                 className="object-cover h-64 m-2"
             />
             <p className="m-2 line-clamp-2 ">{data.title}</p>

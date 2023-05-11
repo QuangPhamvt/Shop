@@ -1,9 +1,12 @@
+import {CookiesProvider} from "react-cookie"
 import Router from "./pages"
 
 function App() {
 
     return (
-        <Router/>
+        <CookiesProvider>
+            <Router/>
+        </CookiesProvider>
     )
 }
 

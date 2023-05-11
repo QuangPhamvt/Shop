@@ -1,28 +1,18 @@
-import {Schema, model} from "mongoose";
-import Product from "./product.model.js";
+import { db} from "../middleware/mongodb.middleware.js"
 
 
 
-
-const categorySchema = new Schema({
-    name: {
-        type: "string",
-        unique: true,
-    },
-    products: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Product',
-    }]
-}, {
-    methods: {
-        async addProduct( name )  {
-            const category = await Category.find({ name })
-            const products = await Product.find({ category  })
-            await Category.updateOne({ name }, { $push: { products }})
+export const categoryTitleProducts = db
+    .collection("categories")
+    .aggregate([
+        {
+            $lookup: 
+            {
+                from: "products",
+                localField: "products",
+                foreignField: "_id",
+                as: "products"
+            }
         }
-    }
-})
-
-const Category = model("Category", categorySchema)
-export default Category
-
+    ])
+    .project({name: 1, "products.title": 1, "products._id": 1 })

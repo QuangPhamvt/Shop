@@ -10,7 +10,7 @@ import userRouter from './user.js';
 const router = Router()
 
 
-router.use("/category", categoryRouter)
+router.use("/categories", categoryRouter)
 router.use("/products", productRouter)
 router.use("/users", userRouter)
 

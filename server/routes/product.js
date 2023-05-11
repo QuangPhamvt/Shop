@@ -1,5 +1,3 @@
-import Product from "../models/product.model.js"
-import Category from "../models/category.model.js"
 import { Router } from "express"
 import productController from "../controllers/product.controller.js"
 

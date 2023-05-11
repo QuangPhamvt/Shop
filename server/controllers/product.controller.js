@@ -1,6 +1,9 @@
-import Product from "../models/product.model.js"
 import { db } from "../middleware/mongodb.middleware.js"
-
+import {
+    allProductModel,
+    singleProductModel,
+    paginationResulfModel,
+} from "../models/product.model.js"
 
 
 
@@ -9,19 +12,8 @@ import { db } from "../middleware/mongodb.middleware.js"
 const productController = {
     //get all products
     getAllProducts: async (req, res) => {
-        const products = db
-            .collection("products")
-            .aggregate([
-                {$lookup:{
-                    from: "categories",
-                    localField: "category",
-                    foreignField: "_id",
-                    as: "category",
-                }}
-            ])
-            .project({ "category.products": 0 })
         try {
-            const data = await products.toArray()
+            const data = await allProductModel.toArray()
             res.json({
                 data
             })
@@ -33,24 +25,12 @@ const productController = {
     getSingleProduct: async (req, res) => {
         const { id } = req.params
         try {
-            const product = await Product.findOne({ _id: id }).populate('category', {name: 1})
-            if(!product)
-                res
-                    .status(404)
-                    .json({
-                        data: product,
-                        success: false,
-                        message: 'Yêu chị THư nhưng không tôn tại sản phẩm'
-                    })
-            else
-                res
-                    .status(200)
-                    .json({
-                        data: product,
-                        success: true,
-                        message: "Yêu chị Nào đó nhiều",
-                    })
-
+            const data = await singleProductModel(id).toArray()
+            res.json({
+                success: true,
+                data,
+                message: "Yeu Thu NHieu"
+            })
         } catch (error) {
             res.json({ message: error.message })
         }
@@ -63,30 +43,14 @@ const productController = {
         if (!limit || !page)
             next()
         else{
-
             try {
-                const products = await db
-                    .collection("products")
-                    .aggregate([
-                        { $skip: limit*(page-1) },
-                        {
-                            $lookup: {
-                                from: "categories",
-                                localField: "category",
-                                foreignField: "_id",
-                                as:"category",
-                            }
-                        },
-                        {$limit: limit},
-                    ])
-                    .project({ "category.products": 0 })
-                    .toArray()
+                const products = await paginationResulfModel(limit, page).toArray()
                 const totalProducts = await db.collection("products").countDocuments()
                 const totalPage = Math.ceil( totalProducts/limit )
                 const metaData = {
                     currentPage: page,
                     totalProducts,
-                    nextPage: page + 1 <= totalPage  ? page + 1 : null,
+                    nextPage: page + 1 <= totalPage ? page + 1 : null,
                     totalPage,
                 }
                 res.status(200).json({

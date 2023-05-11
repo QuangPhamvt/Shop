@@ -7,7 +7,8 @@ import queryString from "query-string";
 const axiosClient = axios.create({
     baseURL: import.meta.env.VITE_BASE_URL,
     headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': "http://localhost:5000",
     },
     paramsSerializer: params => queryString.stringify(params)
 })
