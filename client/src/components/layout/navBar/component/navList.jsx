@@ -1,5 +1,6 @@
 import {BsFillCartFill} from "react-icons/bs"
 import { Link } from "react-router-dom"
+import Home from "../../../../pages/home"
 const NavList = () => {
     return (
         <div className="col-span-3 grid grid-cols-6 content-center justify-items-center">

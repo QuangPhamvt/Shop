@@ -9,7 +9,7 @@ const Content = () => {
 
     const arr = useSelector( store => store.product.data.data ) || []
     return (
-            <div className="col-span-5 flex flex-col gap-3">
+            <div className="col-span-5 flex flex-col gap-3 col-start-2">
                 <div className="grid grid-cols-4 gap-2 mx-2">
                     {arr.map((state,index)=> <ItemContent key={index} data={state} />)}
                 </div>

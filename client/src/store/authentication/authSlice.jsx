@@ -4,7 +4,6 @@ import {axiosLoginAuth} from "./authThunk"
 
 
 const initialState = {
-    data: [],
     success: false,
     message: "",
 }
@@ -17,7 +16,6 @@ const authenticationSlice = createSlice({
     extraReducers: builder => {
         builder
             .addCase(axiosLoginAuth.fulfilled, (state, actions) => {
-                console.log(actions.payload);
                 const { success, message } = actions.payload
                 return { ...state, success, message }
             })

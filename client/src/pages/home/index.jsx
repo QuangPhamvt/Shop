@@ -5,7 +5,7 @@ import Main from '../../components/layout/main'
 
 const Home = () => {
     return (
-        <div className="">
+        <div className="bg-primary ">
             <Main/>
         </div>
     )

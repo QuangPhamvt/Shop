@@ -12,12 +12,13 @@ export default function usePageProduct() {
     useEffect(() => {
         if(!(searchParams.get("page") === null)){
             dispatch(axiosPageProduct({ page, limit }))
-            setSearchParams({ page, limit})
+            setSearchParams({ page})
             return
         }
         dispatch(axiosPageProduct({ page: 1, limit }))
         setPage(1)
-        setSearchParams({ page: 1, limit})
+        setSearchParams({ page: 1})
     }, [page, searchParams.get("page")])
+
     return [page, setPage]
 }

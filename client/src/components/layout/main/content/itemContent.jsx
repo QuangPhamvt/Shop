@@ -1,23 +1,15 @@
+import {useState} from 'react'
 import { BsStar, BsCurrencyDollar } from 'react-icons/bs'
 const ItemContent = ( { data } ) => {
-    // const data = {
-    //     title: "special cotton shirt for men asdsad asdasd asdsad asdasd asdasd asd asd hhhh",
-    //     price: 15,
-    //     description: "",
-    //     slug: "special-cotton-shirt-for-men",
-    //     category: {
-    //     _id: "6455ce0bab0969018731db04",
-    //     name: "men's fashion",
-    //     slug: "mens-fashion",
-    //     },
-    //     image: "",
-    // }
+
+    const [loading, setLoading] = useState(true)
     return (
 
-        <div className="flex flex-col gap-3 h-[460px] border-2 rounded-md">
+        <div className={`flex flex-col gap-3 h-[460px] border-[1px] rounded-md bg-white`}>
             <img 
-                src={data["thumbnail"]} alt="loading"
-                className="object-cover h-64 m-2"
+                src={data["thumbnail"]} alt=""
+                className={`object-cover h-64 m-2 ${loading ? 'hidden' : 'block'}` }
+                onLoad={() => setLoading(false)}
             />
             <p className="m-2 line-clamp-2 ">{data.title}</p>
             <p className='mx-2 flex flex-row items-center'>
